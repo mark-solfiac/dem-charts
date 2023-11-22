@@ -30,10 +30,8 @@ for (const [key, val] of Object.entries(rawData[0])) {
 }
 
 for (const group of rawData.toReversed()) {
-  // console.log(group);
   if (group.Sex === "All") {
     if (group.Ethnicity === "All") {
-      // console.log(totalsByAgeGroup);
       continue;
     }
     const rawValues = [];
@@ -71,9 +69,6 @@ for (const group of rawData.toReversed()) {
   }
 }
 
-console.log(totalsByAgeGroup);
-console.log(percentagesData);
-
 const pyramidConfig = {
   type: "bar",
   data: pyramidData,
@@ -93,7 +88,7 @@ const pyramidConfig = {
     plugins: {
       title: {
         display: true,
-        text: 'Population Pyramid',
+        text: 'Population pyramid',
         font: {
           size: 30
         },
@@ -123,7 +118,7 @@ const chartConfig = {
     plugins: {
       title: {
         display: true,
-        text: 'By Numbers in Each Age Group',
+        text: 'Numbers in each age group',
         font: {
           size: 30
         },
@@ -154,7 +149,7 @@ const percentagesConfig = {
       },
       title: {
         display: true,
-        text: 'By Percentage of Each Age Group',
+        text: 'Percentage of each age group',
         font: {
           size: 30
         },
@@ -162,8 +157,6 @@ const percentagesConfig = {
     },
   },
 };
-
-console.log(chartConfig);
 
 new Chart(ctx1, pyramidConfig);
 new Chart(ctx2, chartConfig);
