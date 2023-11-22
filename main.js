@@ -123,7 +123,7 @@ const chartConfig = {
     plugins: {
       title: {
         display: true,
-        text: 'By Numbers',
+        text: 'By Numbers in Each Age Group',
         font: {
           size: 30
         },
@@ -154,7 +154,7 @@ const percentagesConfig = {
       },
       title: {
         display: true,
-        text: 'By Percentage',
+        text: 'By Percentage of Each Age Group',
         font: {
           size: 30
         },
