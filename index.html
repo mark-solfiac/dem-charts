@@ -12,6 +12,15 @@
     }
   </style>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-54P31TLC7X"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-54P31TLC7X');
+  </script>
 </head>
 <body>
   <div style="text-align: center;">
@@ -21,7 +30,8 @@
       (<a target='blank' href='https://www.ons.gov.uk/peoplepopulationandcommunity/culturalidentity/ethnicity/datasets/ethnicgroupbyageandsexinenglandandwales'>ONS</a>) 
     </p>
     <p>
-      Note some categories have been 
+      Note some categories from the raw census data have been combined. 'White Other' also includes 'White Irish' etc,
+      'Asian' includes teh Arab and Chinese groups. 
     </p>
   </div>
   <canvas id="pop-pyramid" width="800" height="400"></canvas>

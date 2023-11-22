@@ -123,7 +123,7 @@ const chartConfig = {
     plugins: {
       title: {
         display: true,
-        text: 'Total',
+        text: 'By Numbers',
         font: {
           size: 30
         },
@@ -154,7 +154,7 @@ const percentagesConfig = {
       },
       title: {
         display: true,
-        text: 'Percentages',
+        text: 'By Percentage',
         font: {
           size: 30
         },
