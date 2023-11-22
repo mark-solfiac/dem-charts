@@ -1,12 +1,35 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Population Pyramid</title>
+  <title>2021 England and Wales census by ethnic group</title>
+  <style>
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      color: #666;
+    }
+    h1 {
+      font-size: 42px;
+    }
+  </style>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
+  <div style="text-align: center;">
+    <h1>2021 England and Wales census by ethnic group</h1>
+    <p>
+      Source: Ethnic group by age and sex in England and Wales - 2021
+      (<a target='blank' href='https://www.ons.gov.uk/peoplepopulationandcommunity/culturalidentity/ethnicity/datasets/ethnicgroupbyageandsexinenglandandwales'>ONS</a>) 
+    </p>
+    <p>
+      Note some categories have been 
+    </p>
+  </div>
   <canvas id="pop-pyramid" width="800" height="400"></canvas>
+  <br>
+  <br>
   <canvas id="pop-chart" width="800" height="400"></canvas>
+  <br>
+  <br>
   <canvas id="pop-percentages" width="800" height="400"></canvas>
   <script src="ethnic_groups_age_sex.js"></script>
   <script src="main.js"></script>

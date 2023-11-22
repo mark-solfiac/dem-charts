@@ -3,12 +3,12 @@ const ctx2 = document.getElementById("pop-chart").getContext("2d");
 const ctx3 = document.getElementById("pop-percentages").getContext("2d");
 
 const colors = {
-  "White British": "blue",
-  "White Other": "green",
-  "Other": "grey",
-  "Asian": "brown",
-  "Black": "black",
-  "Mixed": "purple",
+  "White British": "#ffd7ae",
+  "White Other": "#eac086",
+  Other: "grey",
+  Asian: "#8a5343",
+  Black: "#3d0c02",
+  Mixed: "#af6e51",
 };
 
 const pyramidData = {
@@ -19,24 +19,39 @@ const pyramidData = {
 };
 
 const chartData = structuredClone(pyramidData);
-const percentagesData = structuredClone(pyramidData);
+chartData.labels.reverse();
+const percentagesData = structuredClone(chartData);
+const totalsByAgeGroup = {};
+
+for (const [key, val] of Object.entries(rawData[0])) {
+  if (!isNaN(val)) {
+    totalsByAgeGroup[key] = val;
+  }
+}
 
 for (const group of rawData.toReversed()) {
-  console.log(group);
-  // pyramidData.labels.push(ageGroup.Age);
-  if (group.Sex === 'All') {
-    if (group.Ethnicity === 'All') {
+  // console.log(group);
+  if (group.Sex === "All") {
+    if (group.Ethnicity === "All") {
+      // console.log(totalsByAgeGroup);
       continue;
     }
     const rawValues = [];
-    for (const val of Object.values(group)) {
+    const percentValues = [];
+    for (const [key, val] of Object.entries(group)) {
       if (!isNaN(val)) {
         rawValues.push(val);
+        percentValues.push((val / totalsByAgeGroup[key]) * 100);
       }
     }
     chartData.datasets.unshift({
       label: group.Ethnicity,
       data: rawValues,
+      backgroundColor: colors[group.Ethnicity],
+    });
+    percentagesData.datasets.unshift({
+      label: group.Ethnicity,
+      data: percentValues,
       backgroundColor: colors[group.Ethnicity],
     });
   } else {
@@ -56,9 +71,8 @@ for (const group of rawData.toReversed()) {
   }
 }
 
-// console.log(pyramidData);
-
-
+console.log(totalsByAgeGroup);
+console.log(percentagesData);
 
 const pyramidConfig = {
   type: "bar",
@@ -76,6 +90,21 @@ const pyramidConfig = {
         stacked: true,
       },
     },
+    plugins: {
+      title: {
+        display: true,
+        text: 'Population Pyramid',
+        font: {
+          size: 30
+        },
+      },
+      tooltip: {
+        callbacks: {
+          label: (context) =>
+            `${context.dataset.label}: ${Math.abs(context.parsed.x).toLocaleString()}`,
+        },
+      },
+    },
   },
 };
 
@@ -83,16 +112,21 @@ const chartConfig = {
   type: "bar",
   data: chartData,
   options: {
-    // indexAxis: "y",
     scales: {
       x: {
         stacked: true,
-        ticks: {
-          callback: (value) => Math.abs(value), // this makes the labels positive
-        },
       },
       y: {
         stacked: true,
+      },
+    },
+    plugins: {
+      title: {
+        display: true,
+        text: 'Total',
+        font: {
+          size: 30
+        },
       },
     },
   },
@@ -102,20 +136,34 @@ const percentagesConfig = {
   type: "bar",
   data: percentagesData,
   options: {
-    // indexAxis: "y",
     scales: {
       x: {
         stacked: true,
-        ticks: {
-          callback: (value) => Math.abs(value), // this makes the labels positive
-        },
       },
       y: {
         stacked: true,
+        max: 100,
+      },
+    },
+    plugins: {
+      tooltip: {
+        callbacks: {
+          label: (context) =>
+            `${context.dataset.label}: ${Math.round(context.parsed.y)}%`,
+        },
+      },
+      title: {
+        display: true,
+        text: 'Percentages',
+        font: {
+          size: 30
+        },
       },
     },
   },
 };
+
+console.log(chartConfig);
 
 new Chart(ctx1, pyramidConfig);
 new Chart(ctx2, chartConfig);
