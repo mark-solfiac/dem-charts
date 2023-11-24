@@ -1,0 +1,27 @@
+---
+layout: default
+---
+
+<div id='intro-text'>
+  <h2>{{ page.title }}</h2>
+  <p>
+    Data Source: Ethnic group by age and sex in England and Wales - 2021
+    (<a target='blank' href='https://www.ons.gov.uk/peoplepopulationandcommunity/culturalidentity/ethnicity/datasets/ethnicgroupbyageandsexinenglandandwales'>ONS</a>).
+  <br>
+    Note: some categories from the raw census data have been combined. 'White Other' also includes 'White Irish' etc,
+    'Asian' includes the Arab and Chinese groups. 
+  </p>
+</div>
+<section>
+  {{ content }}
+</section>
+<canvas id="pop-pyramid" width="800" height="400"></canvas>
+<br>
+<br>
+<canvas id="pop-chart" width="800" height="400"></canvas>
+<br>
+<br>
+<canvas id="pop-percentages" width="800" height="400"></canvas>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="{{ page.data_source | relative_url }}"></script>
+<script src="{{ "/main.js" | relative_url }}"></script>
