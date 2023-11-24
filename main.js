@@ -2,70 +2,85 @@ const ctx1 = document.getElementById("pop-pyramid").getContext("2d");
 const ctx2 = document.getElementById("pop-chart").getContext("2d");
 const ctx3 = document.getElementById("pop-percentages").getContext("2d");
 
+const chartGroupOrder = [
+  "White British",
+  "White Other",
+  "Asian",
+  "Black",
+  "Mixed",
+  "Other",
+];
+
 const colors = {
   "White British": "#ffd7ae",
   "White Other": "#eac086",
-  Other: "grey",
+  Other: "#ebab7f",
   Asian: "#8a5343",
   Black: "#3d0c02",
   Mixed: "#af6e51",
 };
 
-const pyramidData = {
-  labels: Object.keys(rawData[0])
-    .toReversed()
-    .filter((x) => !["Ethnicity", "Sex"].includes(x)),
-  datasets: [],
-};
-
-const chartData = structuredClone(pyramidData);
-chartData.labels.reverse();
-const percentagesData = structuredClone(chartData);
 const totalsByAgeGroup = {};
+const ageGroups = [];
 
-for (const [key, val] of Object.entries(rawData[0])) {
-  if (!isNaN(val)) {
+for (const [key, val] of Object.entries(rawData["All"][0])) {
+  if (key != "Sex") {
+    ageGroups.push(key);
     totalsByAgeGroup[key] = val;
   }
 }
 
-for (const group of rawData.toReversed()) {
-  if (group.Sex === "All") {
-    if (group.Ethnicity === "All") {
-      continue;
-    }
-    const rawValues = [];
-    const percentValues = [];
-    for (const [key, val] of Object.entries(group)) {
-      if (!isNaN(val)) {
-        rawValues.push(val);
-        percentValues.push((val / totalsByAgeGroup[key]) * 100);
+const pyramidData = {
+  labels: ageGroups.toReversed(),
+  datasets: [],
+};
+
+const chartData = {
+  labels: ageGroups,
+  datasets: [],
+};
+
+const percentagesData = {
+  labels: ageGroups,
+  datasets: [],
+};
+
+for (const ethnicity of chartGroupOrder.toReversed()) {
+  for (const group of rawData[ethnicity]) {
+    if (group.Sex === "All") {
+      const rawValues = [];
+      const percentValues = [];
+      for (const [key, val] of Object.entries(group)) {
+        if (!isNaN(val)) {
+          rawValues.push(val);
+          percentValues.push((val / totalsByAgeGroup[key]) * 100);
+        }
       }
-    }
-    chartData.datasets.unshift({
-      label: group.Ethnicity,
-      data: rawValues,
-      backgroundColor: colors[group.Ethnicity],
-    });
-    percentagesData.datasets.unshift({
-      label: group.Ethnicity,
-      data: percentValues,
-      backgroundColor: colors[group.Ethnicity],
-    });
-  } else {
-    const label = `${group.Ethnicity} ${group.Sex}`;
-    const coefficient = group.Sex === "Male" ? -1 : 1;
-    const rawValues = [];
-    for (const val of Object.values(group).toReversed()) {
-      if (!isNaN(val)) {
-        rawValues.push(val * coefficient);
+      chartData.datasets.unshift({
+        label: ethnicity,
+        data: rawValues,
+        backgroundColor: colors[ethnicity],
+      });
+      percentagesData.datasets.unshift({
+        label: ethnicity,
+        data: percentValues,
+        backgroundColor: colors[ethnicity],
+      });
+    } else {
+      const label = `${ethnicity} ${group.Sex}`;
+      const coefficient = group.Sex === "Male" ? -1 : 1;
+      const rawValues = [];
+      for (const val of Object.values(group).toReversed()) {
+        if (!isNaN(val)) {
+          rawValues.push(val * coefficient);
+        }
       }
+      pyramidData.datasets.unshift({
+        label,
+        data: rawValues,
+        backgroundColor: colors[ethnicity],
+      });
     }
-    pyramidData.datasets.unshift({
-      label,
-      data: rawValues,
-      backgroundColor: colors[group.Ethnicity],
-    });
   }
 }
 
@@ -88,15 +103,17 @@ const pyramidConfig = {
     plugins: {
       title: {
         display: true,
-        text: 'Population pyramid',
+        text: "Population pyramid",
         font: {
-          size: 30
+          size: 30,
         },
       },
       tooltip: {
         callbacks: {
           label: (context) =>
-            `${context.dataset.label}: ${Math.abs(context.parsed.x).toLocaleString()}`,
+            `${context.dataset.label}: ${Math.abs(
+              context.parsed.x
+            ).toLocaleString()}`,
         },
       },
     },
@@ -118,9 +135,9 @@ const chartConfig = {
     plugins: {
       title: {
         display: true,
-        text: 'Numbers in each age group',
+        text: "Numbers in each age group",
         font: {
-          size: 30
+          size: 30,
         },
       },
     },
@@ -149,9 +166,9 @@ const percentagesConfig = {
       },
       title: {
         display: true,
-        text: 'Percentage of each age group',
+        text: "Percentage of each age group",
         font: {
-          size: 30
+          size: 30,
         },
       },
     },
