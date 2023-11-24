@@ -101,13 +101,6 @@ const pyramidConfig = {
       },
     },
     plugins: {
-      title: {
-        display: true,
-        text: "Population pyramid",
-        font: {
-          size: 30,
-        },
-      },
       tooltip: {
         callbacks: {
           label: (context) =>
@@ -132,15 +125,6 @@ const chartConfig = {
         stacked: true,
       },
     },
-    plugins: {
-      title: {
-        display: true,
-        text: "Numbers in each age group",
-        font: {
-          size: 30,
-        },
-      },
-    },
   },
 };
 
@@ -162,13 +146,6 @@ const percentagesConfig = {
         callbacks: {
           label: (context) =>
             `${context.dataset.label}: ${Math.round(context.parsed.y)}%`,
-        },
-      },
-      title: {
-        display: true,
-        text: "Percentage of each age group",
-        font: {
-          size: 30,
         },
       },
     },
