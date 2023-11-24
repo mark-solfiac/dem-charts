@@ -6,7 +6,6 @@ baseurl: "/dem-charts/"
 url: "https://mark-solfiac.github.io/dem-charts/"
 twitter_username: marksolfiac
 github_username:  mark-solfiac
-google_analytics: G-54P31TLC7X
 
 theme: minima
 
