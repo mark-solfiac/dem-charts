@@ -15,15 +15,15 @@ layout: default
 <section>
   {{ content }}
 </section>
-<h1 class='chart-title'>Population Pyramid ({{ page.title }} - 2021 census)</h1>
+<h2 class='chart-title'>Population Pyramid ({{ page.title }} - 2021 census)</h2>
 <canvas id="pop-pyramid" width="800" height="400"></canvas>
 <br>
 <br>
-<h1 class='chart-title'>Numbers in each age group ({{ page.title }} - 2021 census)</h1>
+<h2 class='chart-title'>Numbers in each age group ({{ page.title }} - 2021 census)</h2>
 <canvas id="pop-chart" width="800" height="400"></canvas>
 <br>
 <br>
-<h1 class='chart-title'>Percentages of each age group ({{ page.title }} - 2021 census)</h1>
+<h2 class='chart-title'>Percentages of each age group ({{ page.title }} - 2021 census)</h2>
 <canvas id="pop-percentages" width="800" height="400"></canvas>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script src="{{ page.data_source | relative_url }}"></script>
