@@ -2,12 +2,11 @@ title: Ethnic groups in the 2021 United Kingdom census
 description: >-
   Charts of ethnic groups by sex, total numbers and percentages in the 2021 United Kingdom census
 baseurl: "/dem-charts/"
-url: "https://mark-solfiac.github.io/dem-charts/"
+url: "https://marksolfiac.github.io/dem-charts/"
 twitter_username: marksolfiac
-github_username:  mark-solfiac
+github_username: marksolfiac
 
 theme: minima
 
 plugins:
-- jekyll-remote-theme
-
+  - jekyll-remote-theme
