@@ -84,6 +84,25 @@ for (const ethnicity of chartGroupOrder.toReversed()) {
   }
 }
 
+function makeChartTitle(prefix) {
+  return {
+    display: true,
+    text: `${prefix} (${pageTitle}: 2021 census)`,
+    font: {
+      size: 24,
+      weight: 400,
+    },
+  };
+}
+
+const legend = {
+  title: {
+    display: true,
+    text: "Data Source: Ethnic group by age and sex in England and Wales: 2021 (ONS)",
+  },
+};
+
+const prefix = "asdfdf";
 const pyramidConfig = {
   type: "bar",
   data: pyramidData,
@@ -101,6 +120,8 @@ const pyramidConfig = {
       },
     },
     plugins: {
+      title: makeChartTitle("Population Pyramid"),
+      legend,
       tooltip: {
         callbacks: {
           label: (context) =>
@@ -125,6 +146,10 @@ const chartConfig = {
         stacked: true,
       },
     },
+    plugins: {
+      title: makeChartTitle("Numbers in each age group"),
+      legend,
+    },
   },
 };
 
@@ -148,10 +173,12 @@ const percentagesConfig = {
             `${context.dataset.label}: ${Math.round(context.parsed.y)}%`,
         },
       },
+      title: makeChartTitle("Percentages of each age group"),
+      legend,
     },
   },
 };
 
-new Chart(ctx1, pyramidConfig);
+new Chart(ctx1, percentagesConfig);
 new Chart(ctx2, chartConfig);
-new Chart(ctx3, percentagesConfig);
+new Chart(ctx3, pyramidConfig);
